@@ -21,7 +21,7 @@
       class="fixed z-50 bottom-0 flex w-full h-[70px] border-t border-t-gray-700 bg-black"
     >
       <div
-        class="flex w-full max-w-[500px] mx-auto flex items-center justify-around"
+        class="flex w-full max-w-[500px] mx-auto flex-items-center justify-around"
       >
         <!-- Boton de Home -->
         <button @click="navigateTo('/')" class="w-full h-full">
@@ -58,7 +58,7 @@
 
 <script setup>
 
-import { useStore } from "~/stores/user";
-const userStore = useStore();
+import { useUserStore } from "~/stores/user";
+const userStore = useUserStore();
 
 </script>
