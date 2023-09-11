@@ -1,5 +1,5 @@
 <template>
-  <div id="AuthPage" class="w-full h-[100vh] h-screen pt-32">
+  <div id="AuthPage" class="w-full h-screen pt-32">
     <div class="w-full">
       <div class="w-full flex items-center justify-center gap-2.5 p-2">
         <img class="w-[35px]" src="/threads-logo.png" />

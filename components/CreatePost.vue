@@ -36,7 +36,7 @@
               />
             </div>
             <div
-              class="bg-black rounded-lg w-[calc(100%-50px)] text w-full font-light"
+              class="bg-black rounded-lg w-[calc(100%-50px)] text font-light"
             >
               <div class="pt-2 text-gray-300 bg-black w-full">
                 <textarea
@@ -84,7 +84,7 @@
         v-if="text"
         :disabled="isLoading"
         @click="createPost"
-        class="fixed bottom-0 font-bold text-lg w-full p-2 bg-black inline-block float-right p-4 border-t border-t-gray-700"
+        class="fixed bottom-0 font-bold text-lg w-full p-2 bg-black inline-block float-right border-t border-t-gray-700"
         :class="isLoading ? 'text-gray-600' : 'text-blue-600'"
       >
         <div v-if="!isLoading">Post</div>

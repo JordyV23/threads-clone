@@ -53,7 +53,7 @@
         </div>
 
         <div
-          class="bg-black rounded-lg w-[calc(100%-50px)] text-sm w-full font-light"
+          class="bg-black rounded-lg w-[calc(100%-50px)] text-sm font-light"
         >
           <div class="py-2 text-gray-300">
             {{ post.text }}
