@@ -102,6 +102,9 @@ import { v4 as uuidv4 } from "uuid";
 import { useUserStore } from "~/stores/user";
 const userStore = useUserStore();
 
+const clinet = useSupabaseClient();
+const user = useSupabaseUser();
+
 let text = ref(null);
 let isLoading = ref(false);
 

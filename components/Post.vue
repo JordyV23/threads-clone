@@ -9,7 +9,16 @@
           </div>
         </div>
 
-        <div @click="isMenu = !isMenu" class="relative">
+        <!-- <Opcion de eliminar Post -->
+        <div
+          v-if="
+            user &&
+            user.identities &&
+            user.identities[0].user_id === post.user_id
+          "
+          @click="isMenu = !isMenu"
+          class="relative"
+        >
           <button
             :disabled="isDeleting"
             class="flex items-center text-white p-1 h-[24px] w-[2 px] hover:bg-gray-800 rounded-full cursor-pointer"
@@ -45,6 +54,7 @@
             </button>
           </div>
         </div>
+        <!-- Opcion de eliminar Post/> -->
       </div>
 
       <div class="relative flex items-center w-full">
@@ -52,16 +62,14 @@
           <div class="absolute ml-4 mt-1 top-0 w-[1px] bg-gray-700 h-full" />
         </div>
 
-        <div
-          class="bg-black rounded-lg w-[calc(100%-50px)] text-sm font-light"
-        >
+        <div class="bg-black rounded-lg w-[calc(100%-50px)] text-sm font-light">
           <div class="py-2 text-gray-300">
             {{ post.text }}
           </div>
           <img
             v-if="post && post.picture"
             class="mx-auto w-full mt-2 pr-2 rounded"
-            :src="post.picture"
+            :src="runtimeConfig.public.bucketUrl + post.picture"
           />
 
           <div class="absolute mt-2 w-full ml-2">
@@ -87,18 +95,26 @@
       <div class="flex items-center">
         <div class="flex items-center flex-wrap text-white gap-1 w-[42px]">
           <div class="flex gap-0.5">
-            <img class="rounded-full h-[14px] mt-2" src="https://picsum.photos/id/202/50">
-            <img class="rounded-full h-[17px]" src="https://picsum.photos/id/223/50">
+            <img
+              class="rounded-full h-[14px] mt-2"
+              src="https://picsum.photos/id/202/50"
+            />
+            <img
+              class="rounded-full h-[17px]"
+              src="https://picsum.photos/id/223/50"
+            />
           </div>
           <div class="flex items-center">
-            <img class="rounded-full h-[11px] ml-4" src="https://picsum.photos/id/99/50">
+            <img
+              class="rounded-full h-[11px] ml-4"
+              src="https://picsum.photos/id/99/50"
+            />
           </div>
         </div>
       </div>
     </div>
 
     <div class="h-[1px] bg-gray-800 w-full mt-3" />
-
   </div>
 </template>
 
@@ -113,4 +129,8 @@ let isDeleting = ref(false);
 
 const emit = defineEmits(["isDeleted"]);
 const props = defineProps({ post: Object });
+
+const client = useSupabaseClient();
+const user = useSupabaseUser();
+
 </script>
