@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
  */
 export default defineEventHandler(async () => {
   //Hace la petición a la base de datos
-  let posts = await prisma.post.findMany({
+  let posts = await prisma.posts.findMany({
     orderBy: { id: "desc" },
     include: { likes: true },
   });

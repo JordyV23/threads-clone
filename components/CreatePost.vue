@@ -102,7 +102,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useUserStore } from "~/stores/user";
 const userStore = useUserStore();
 
-const clinet = useSupabaseClient();
+const client = useSupabaseClient();
 const user = useSupabaseUser();
 
 let text = ref(null);
@@ -129,7 +129,7 @@ const ajustarAlturaEnTextarea = () => {
 const limpiar = () => {
   //Objeto con las variables
   const variables = { text, file, fileDisplay, fileData };
-  
+
   //Recorremos el objeto y le asigna null a cada variable
   for (const variableName in variables) {
     if (variables.hasOwnProperty(variableName)) {
@@ -153,5 +153,63 @@ const onChange = () => {
 const onCancelCreation = () => {
   userStore.isMenuOverlay = false;
   limpiar();
+};
+
+const createPost = async () => {
+  let dataOut = null;
+  let errorOut = null;
+  isLoading.value = true;
+
+  //Revisa si hay un archivo
+  if (fileData.value) {
+    //Sube el archivo a supabase
+    const { data, error } = await client.storage
+      .from("threads-clone-files")
+      .upload(`${uuidv4()}.jpg`, fileData.value);
+
+    // le asigna el valor a la variable
+    dataOut = data;
+    errorOut = error;
+
+    //Si hay un error
+    if (errorOut) {
+      console.log(errorOut);
+      return errorOut;
+    }
+
+    //Intenta guardar el post
+    try {
+      await storePost();
+    } catch (error) {}
+  }
+};
+
+/**
+ * Funcion que guarda el post en la base de datos
+ */
+const storePost = async () => {
+  //Obtiene los datos del usuario
+  const { user_id } = user.value.identities[0];
+  const { full_name, avatar_url } = user.value.identities[0].identity_data;
+  let pic = "";
+  if (dataOut) pic = dataOut.path ? dataOut.path : "";
+
+  //Envia los datos a la api
+  await useFetch("/api/create-post", {
+    method: "POST",
+    //Arma el body
+    body: {
+      userId: user_id,
+      name: full_name,
+      image: avatar_url,
+      text: text.value,
+      picture: pic,
+    },
+  });
+
+  //Refresca los posts
+  await userStore.getAllPosts();
+  //Cierra el modal
+  userStore.isMenuOverlay = false;
 };
 </script>

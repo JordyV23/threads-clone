@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
     data: {
       userId: body.userId,
       name: body.name,
-      image: body.Image,
+      image: body.image,
       text: body.text,
       picture: body.picture,
     },
