@@ -2,6 +2,10 @@
 export default defineNuxtConfig({
   //Habilita el router
   pages: true,
+  //Desactiva el router de supabase
+  supabase: {
+    redirect: false
+  },
   //Carga los modulos de nuxt
   modules: [
     "nuxt-icon",
