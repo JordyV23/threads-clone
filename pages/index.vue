@@ -10,26 +10,39 @@
             v-for="post in posts"
             :key="post"
           >
-            <Post :post="post" @isDeleted="posts = []" />
+            <Post :post="post" @isDeleted="posts = userStore.getAllPosts()" />
           </div>
 
           <div v-else>
             <client-only>
-              <div v-if="isLoading" class="mt-20 w-full flex items-center justify-center mx-auto">
-                <div class="text-white mx-auto flex flex-col items-center justify-center">
-                  <Icon name="eos-icons:bubble-loading" size="50" color="#ffffff" />
+              <div
+                v-if="isLoading"
+                class="mt-20 w-full flex items-center justify-center mx-auto"
+              >
+                <div
+                  class="text-white mx-auto flex flex-col items-center justify-center"
+                >
+                  <Icon
+                    name="eos-icons:bubble-loading"
+                    size="50"
+                    color="#ffffff"
+                  />
                   <div class="w-full mt-1">Cargando...</div>
                 </div>
               </div>
-              <div v-if="!isLoading" class="mt-20 w-full flex items-center justify-center mx-auto">
-                <div class="text-white mx-auto flex flex-col items-center justify-center">
+              <div
+                v-if="!isLoading"
+                class="mt-20 w-full flex items-center justify-center mx-auto"
+              >
+                <div
+                  class="text-white mx-auto flex flex-col items-center justify-center"
+                >
                   <Icon name="tabler:mood-edit" size="50" color="#ffffff" />
                   <div class="w-full mt-1">Crea tu primer post!</div>
                 </div>
               </div>
             </client-only>
           </div>
-
         </div>
       </div>
     </div>
@@ -67,7 +80,6 @@ onBeforeMount(async () => {
     console.log(error);
   }
 });
-
 
 /**
  * Funcion que se ejecuta despues de montar el componente y obtiene todos los posts

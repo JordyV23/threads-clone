@@ -123,7 +123,7 @@ const ajustarAlturaEnTextarea = () => {
 };
 
 /**
- * Funcion para limpiar las variables
+ * Funcion para limpiar y reiniciar las variables
  * @returns void
  */
 const limpiar = () => {
@@ -170,29 +170,31 @@ const createPost = async () => {
     // le asigna el valor a la variable
     dataOut = data;
     errorOut = error;
-
-    //Si hay un error
-    if (errorOut) {
-      console.log(errorOut);
-      return errorOut;
-    }
-
-    //Intenta guardar el post
-    try {
-      await storePost();
-    } catch (error) {}
   }
+
+  //Si hay un error
+  if (errorOut) {
+    console.log(errorOut);
+    return errorOut;
+  }
+
+  //Intenta guardar el post
+  try {
+    await storePost(dataOut);
+  } catch (error) {}
 };
 
 /**
  * Funcion que guarda el post en la base de datos
  */
-const storePost = async () => {
+const storePost = async (dataOut) => {
   //Obtiene los datos del usuario
   const { user_id } = user.value.identities[0];
   const { full_name, avatar_url } = user.value.identities[0].identity_data;
   let pic = "";
-  if (dataOut) pic = dataOut.path ? dataOut.path : "";
+  if (dataOut) {
+    pic = dataOut.path ? dataOut.path : "";
+  }
 
   //Envia los datos a la api
   await useFetch("/api/create-post", {
@@ -211,5 +213,7 @@ const storePost = async () => {
   await userStore.getAllPosts();
   //Cierra el modal
   userStore.isMenuOverlay = false;
+  limpiar();
+  isLoading.value = false;
 };
 </script>

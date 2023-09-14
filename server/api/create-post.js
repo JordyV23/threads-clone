@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
   //Hace la petición a la base de datos
-  const res = await prisma.post.create({
+  const res = await prisma.posts.create({
     //Crea el post con los datos del body
     data: {
       userId: body.userId,

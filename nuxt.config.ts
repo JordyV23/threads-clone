@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   pages: true,
   //Desactiva el router de supabase
   supabase: {
-    redirect: false
+    redirect: false,
   },
   //Carga los modulos de nuxt
   modules: [
@@ -18,7 +18,7 @@ export default defineNuxtConfig({
   //En el frontend
   runtimeConfig: {
     public: {
-      bucketUrl: process.env.BUCKET_URLS,
+      bucketUrl: process.env.BUCKET_URL,
     },
   },
   devtools: { enabled: false },
